@@ -79,8 +79,8 @@ jobs:
       - name: Push Docker image to ECR
         env:
           IMAGE_TAG: ${{ github.sha }}
-          REPOSITORY: polish-sentiment-app-onnx
-          REGISTRY: agh2
+          REPOSITORY: agh2
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
-          docker tag polish-sentiment-app-onnx:latest ${{ steps.login-ecr.outputs.registry }}/${{env.REPOSITORY}}:${{ env.IMAGE_TAG }}
-          docker push ${{ steps.login-ecr.outputs.registry }}/${{env.REPOSITORY}}:${{ env.IMAGE_TAG }}
+          docker tag polish-sentiment-app-onnx:latest ${{ env.REGISTRY }}/${{env.REPOSITORY}}:${{ env.IMAGE_TAG }}
+          docker push ${{ env.REGISTRY }}/${{env.REPOSITORY}}:${{ env.IMAGE_TAG }}
